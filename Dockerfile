@@ -119,10 +119,10 @@ RUN apt-get update && \
 #====================================
 # Install KVM
 #====================================
-RUN sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils && \
-    sudo adduser root kvm && \
-    sudo chown root /dev/kvm && \
-    sudo adduser root libvirtd
+RUN apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils && \
+    adduser root kvm && \
+    chown root /dev/kvm && \
+    adduser root libvirtd
 
 
 #===================================
