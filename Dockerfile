@@ -119,7 +119,7 @@ RUN apt-get update && \
 #====================================
 # Install KVM
 #====================================
-RUN apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils && \
+RUN apt-get install -y qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils && \
     adduser root kvm && \
     chown root /dev/kvm && \
     adduser root libvirtd
@@ -128,7 +128,7 @@ RUN apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils && \
 #===================================
 # Install RobotFramework & Appium library
 #===================================
-RUN pip3 install -y robotframework robotframework-seleniumlibrary robotframework-appiumlibrary==1.5.0.2 | grep "Successfully installed"
+RUN pip3 install robotframework robotframework-seleniumlibrary robotframework-appiumlibrary==1.5.0.2 | grep "Successfully installed"
 
 #===================================
 # Creating emulator
