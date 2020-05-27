@@ -116,6 +116,15 @@ RUN apt-get update && \
     apt-get install -y python3 python3-pip && \
     apt-get install -y python3-pip
 
+#====================================
+# Install KVM
+#====================================
+RUN sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils && \
+    sudo adduser root kvm && \
+    sudo chown root /dev/kvm && \
+    sudo adduser root libvirtd
+
+
 #===================================
 # Install RobotFramework & Appium library
 #===================================
