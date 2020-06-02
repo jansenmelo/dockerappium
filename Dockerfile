@@ -97,7 +97,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
 
-ARG APPIUM_VERSION=1.17.1
+ARG APPIUM_VERSION=1.15.1
 ENV APPIUM_VERSION=$APPIUM_VERSION
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
@@ -112,29 +112,20 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
 #===================================
 # Install Python3
 #===================================
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    apt-get install -y python3-pip
-
-#====================================
-# Install KVM
-#====================================
-RUN apt-get install -y qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils && \
-    adduser root kvm && \
-    chown root /dev/kvm && \
-    adduser root libvirtd
-
+#RUN apt-get update && \
+    #apt-get install -y python3 python3-pip && \
+    #apt-get install -y python3-pip
 
 #===================================
 # Install RobotFramework & Appium library
 #===================================
-RUN pip3 install robotframework robotframework-seleniumlibrary robotframework-appiumlibrary==1.5.0.2 | grep "Successfully installed"
+#RUN pip3 install robotframework robotframework-seleniumlibrary robotframework-appiumlibrary==1.5.0.2 | grep "Successfully installed"
 
 #===================================
 # Creating emulator
 #===================================
-RUN echo y | sdkmanager 'system-images;android-29;default;x86_64' && \
-echo no | avdmanager create avd -n emulator -k 'system-images;android-29;default;x86_64'
+#RUN echo y | sdkmanager 'system-images;android-29;default;x86_64' && \
+#echo no | avdmanager create avd -n emulator -k 'system-images;android-29;default;x86_64'
 
 #================================
 # APPIUM Test Distribution (ATD)
@@ -162,11 +153,15 @@ EXPOSE 4567
 # Scripts to run appium and connect to Selenium Grid
 #====================================================
 COPY entry_point.sh \
+     generate_config.sh \
+     wireless_connect.sh \
      wireless_autoconnect.sh \
-     /root/appium/
+     /root/
 
-RUN chmod +x /root/appium/entry_point.sh && \
-    chmod +x /root/appium/wireless_autoconnect.sh
+RUN chmod +x /root/entry_point.sh && \
+    chmod +x /root/generate_config.sh && \
+    chmod +x /root/wireless_connect.sh && \
+    chmod +x /root/wireless_autoconnect.sh
 
 
 #========================================
